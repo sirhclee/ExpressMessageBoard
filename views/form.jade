@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  header 
+    h1= title
+    p New Message:
+  main
+    form(method="POST", action="/new")
+      p Name 
+        input(type="text", name="messageUser")
+      p Message
+        input(type="text", name="messageText")
+      p 
+        input(type="submit")="post"

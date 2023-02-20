@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  
+  if messages 
+    each post in messages  
+      div #{post.user}: #{post.text} (#{post.added})
+
+  form(method="POST", action="/")
+    input(type="submit", value="New Post")
