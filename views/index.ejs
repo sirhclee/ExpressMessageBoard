@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <!-- if logged in -->
+  <% if (user) {%>
+    <h1>Hello, <%= user.username %></h1>
+    
+    <table style="padding:10px">  
+      
+      <% post_list.forEach(function (post) { %>
+      <tr>
+    
+          
+            <td><b><%= post.username %>: </b>  <%= post.post %>  </td> 
+            <!--ADMIN only to delete  -->
+            <td style="padding:3px">
+            
+              <% if (user.username=='Chris') {%> 
+                <input name ="id" value ="<%= post.id %>" type="hidden"/>
+                <form action="/delete", method="POST">
+                  <button>Delete</button> 
+                </form>
+              </td>
+          
+             <% }%>
+      </tr>  
+
+  
+    <% }) %>
+  </table>
+
+    <form action="/message", method="POST">
+      <h4>Got something to say? </h4>
+      <input name="user" value ="<%= user.username %>" type="hidden"/>
+      <input name="messageText" placeholder="Message..." type="text"/>
+      <p></p>
+
+      <button>Post!</button>
+    </form>
+
+    <p></p>
+    <p></p>
+
+    <a href="/log-out">Log Out</a>
+
+  <% } else { %>
+    <h1>The Cool Message Board</h1>
+    <h3>Log In</h3>
+     <p style="color:red;"> <%= message %> </p>
+    <form action="/log-in" method="POST">
+      <label for="username">Username</label>
+      <input name="username" placeholder="username" type="text" /> 
+      <p></p>
+      <label for="password">Password</label>
+      <input name="password" type="password" />
+      <p></p>
+      <button>Log In</button>
+    </form>
+
+    <h4>What folks are saying:</h4>
+    <% post_list.forEach(function (post) { %>
+      <ul>
+       User: <%= post.post %> 
+      </ul>
+    <% }) %>
+
+
+    <a href="/sign-up"> <h4>First time? Create an account</h4> </a>
+  <%}%>
+
+
+
+
+</body>
+</html>
